@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# shellcheck shell=bash
+
+install_bundle() {
+  local brewfile="${SCRIPT_DIR}/Brewfile"
+
+  if [[ ! -f "${brewfile}" ]]; then
+    echo "Skipping bundle install; ${brewfile} not found"
+    return
+  fi
+
+  echo "Installing Brewfile..."
+  if ! brew bundle --file="${brewfile}"; then
+    echo "Some Brewfile entries failed; rerun ./init.sh after resolving"
+  fi
+}
